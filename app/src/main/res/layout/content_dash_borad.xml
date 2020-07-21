@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".DashBoard"
+    tools:showIn="@layout/activity_dash_board"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/dashboardbackground2"
+        android:gravity="center|left"
+        >
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+
+            android:foreground="@drawable/ic_account"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp" />
+
+        <LinearLayout
+            android:id="@+id/ProfileLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/profile_image"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Dashboard_PersonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:inputType="text"
+                android:text="MAJID HUSSAIN"
+                android:textColor="#ffff"
+                android:textSize="12dp"
+
+
+                />
+
+            <TextView
+                android:id="@+id/Dashboard_PersonPhoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Dashboard_PersonName"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto_condensed_light"
+                android:inputType="number"
+                android:text="+9230123456789"
+                android:textColor="#ffff"
+
+                android:textSize="9dp"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ProfileLossLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="This is loss by "
+                    android:textColor="#ffff"
+                    android:textSize="10dp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold_italic"
+                    android:inputType="number"
+                    android:text="2"
+                    android:textColor="#ffff"
+                    android:textSize="12dp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text=" products:"
+                    android:textColor="#ffff"
+                    android:textSize="10dp"
+
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/changa_one"
+                    android:text="PKR"
+                    android:textColor="#ffff"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:id="@+id/Dashboard_lossPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/changa_one"
+                    android:text="123.0"
+                    android:textColor="#ffff"
+                    android:textSize="25dp" />
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_error" />
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+            android:layout_below="@+id/ProfileLinearLayout"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp">
+
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="20dp"
+                android:background="@drawable/dashboard_additems_btn"
+                android:text="TAP TO ADD ITEMS"
+                android:textSize="9dp"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+            android:layout_below="@+id/ProfileLossLinearLayout"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            >
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="20dp"
+                android:background="@drawable/dashboard_additems_btn"
+                android:text="TAP TO SELL ITEMS"
+                android:textSize="9dp"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+    </RelativeLayout >
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="-30dp"
+      >
+          <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_addItem1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
+            >
+            </androidx.cardview.widget.CardView>
+  </RelativeLayout>
+
+
+</LinearLayout>

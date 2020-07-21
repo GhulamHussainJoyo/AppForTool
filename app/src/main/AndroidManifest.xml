@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
+        <activity android:name=".DashBoard" ></activity>
         <activity android:name=".RegisterMethod">
 
             <intent-filter>

@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 public class RegisterMethod extends AppCompatActivity {
 
@@ -42,11 +45,11 @@ public class RegisterMethod extends AppCompatActivity {
     protected void onStart()
     {   super.onStart();
 
-//        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-//        if(user != null)
-//        {
-//            startActivity(new Intent(RegisterMethod.this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
-//        }
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null)
+        {
+            startActivity(new Intent(RegisterMethod.this,DashBoard.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+        }
 
     }
 }

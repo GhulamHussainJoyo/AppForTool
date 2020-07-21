@@ -73,6 +73,32 @@ public class signUp_page extends AppCompatActivity {
 
         mPassword=findViewById(R.id.enter_password);
 
+        mPhoneNumber = findViewById(R.id.PhoneNumber);
+
+        mFulName.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence.length() <= 3)
+                {
+                    mFulName.setError("NAME IS TOO SHORT");
+                }
+                else
+                {
+                    mFulName.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         signUP=findViewById(R.id.signUP_btn);
 
 
@@ -103,35 +129,31 @@ public class signUp_page extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                final String fullname=mFulName.getEditText().getText().toString().trim();
-                final String email=mEmail.getEditText().getText().toString().trim();
-                final String password=mPassword.getEditText().getText().toString().trim();
-                final String phoneNumber=mPhoneNumber.getEditText().getText().toString().trim();
+                final String fullname=mFulName.getEditText().getText().toString();
+                final String email=mEmail.getEditText().getText().toString();
+                final String password=mPassword.getEditText().getText().toString();
+                final String phoneNumber=mPhoneNumber.getEditText().getText().toString();
 
-                if(!TextUtils.isEmpty(fullname) || !TextUtils.isEmpty(email) || !TextUtils.isEmpty(password) || !TextUtils.isEmpty(phoneNumber))
-
+                if(TextUtils.isEmpty(fullname) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(phoneNumber))
                 {
-                    if (checkEmailValidation(email))
-                    {
-                        if(password.length() < 4)
-                        {
-                            Toast.makeText(getApplicationContext(),"Very weak Password "+userDataArray[2].toString(),Toast.LENGTH_LONG).show();
-
-                        }
-                        else
-                        {
-                            RegisterUser(fullname,phoneNumber,email,password);
-                        }
-                    }
-                    else
-                    {
-                        Toast.makeText(getApplicationContext(),"Bande ka putar ban sahi mail laga",Toast.LENGTH_LONG).show();
-
-                    }
+                    Toast.makeText(getApplicationContext(),"Text field tera baap bhare ga",Toast.LENGTH_LONG).show();
+                }
+                else if(!checkEmailValidation(email))
+                {
+                    Toast.makeText(getApplicationContext(),email,Toast.LENGTH_LONG).show();
+                    mEmail.setError("Wrong Mail");
+                }
+                else if(password.length() < 4)
+                {
+                    mPassword.setError("Password is weak");
+                    Toast.makeText(getApplicationContext(),password,Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),"Text field tera baap bhare ga",Toast.LENGTH_LONG).show();
+                    mPassword.setError(null);
+                    mEmail.setError(null);
+                    mPhoneNumber.setError(null);
+                    RegisterUser(fullname,phoneNumber,email,password);
                 }
 
 
@@ -200,8 +222,9 @@ public class signUp_page extends AppCompatActivity {
                         {
                             pd.dismiss();
                             Toast.makeText(getApplicationContext(),"Done ",Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(signUp_page.this,MainActivity.class));
-
+                            Intent intent=new Intent(signUp_page.this,DashBoard.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
 
 
                         }

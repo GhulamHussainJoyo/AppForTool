@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
-
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -29,10 +35,15 @@ public class login extends AppCompatActivity {
 
     private DataBase_Of_Parts mDatabase;
 
-   // private LoginButton facebook_button;
+    // private LoginButton facebook_button;
     private Button facebook_login_btn_custom,signIN;
+    private TextInputLayout mEmailLayout,mPasswordlayout;
     private TextView sign_up_textView;
     private EditText email,password;
+
+    FirebaseAuth mAuth;
+
+    private int flag1=0,flag2=0;
 
 
 
@@ -47,7 +58,7 @@ public class login extends AppCompatActivity {
 
 
 
-
+        mAuth=FirebaseAuth.getInstance();
         HashMap<String , Object> map=new HashMap<>();
         map.put("Abbal","Joyo");
         map.put("MyParts","Ready");
@@ -56,7 +67,7 @@ public class login extends AppCompatActivity {
 
         //FirebaseDatabase.getInstance().getReference().child("abbal").child("Anfroid").setValue("ABCD");
 
-         pd=new ProgressDialog(this);
+        pd=new ProgressDialog(this);
 
 
         final String[] loginArray=new String[2];
@@ -71,6 +82,9 @@ public class login extends AppCompatActivity {
 
         email=findViewById(R.id.Email);
         password=findViewById(R.id.Password);
+
+        mEmailLayout=findViewById(R.id.EmailTextInputLayout);
+        mPasswordlayout=findViewById(R.id.PasswordTextInputLayout);
 
 
         email.addTextChangedListener(new TextWatcher() {
@@ -91,9 +105,25 @@ public class login extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+                if (TextUtils.isEmpty(s.toString()))
+                {
+                    mEmailLayout.setError("Emplty");
+                }
+                else if(!checkEmailValidation(s.toString()))
+                {
+                    mEmailLayout.setError("WRONG MAIL");
+                }
+                else
+                {
 
-                String local=String.valueOf(s);
-                loginArray[0]=local;
+                    String local=String.valueOf(s);
+                    loginArray[0]=local;
+                    mEmailLayout.setError(null);
+                    flag1=1;
+
+                }
+
+
 
             }
         });
@@ -113,25 +143,43 @@ public class login extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
-                String local=String.valueOf(s);
-                loginArray[1]=local;
+                if (TextUtils.isEmpty(s.toString()))
+                {
+                    mEmailLayout.setError("Emplty");
+                }
+                else if (s.toString().length() <= 3)
+                {
+                    mPasswordlayout.setError("Weak Password");
+                }
+                else
+                {
+                    mPasswordlayout.setError(null);
+                    String local=String.valueOf(s);
+                    loginArray[1]=local;
+                    flag2=1;
+
+                }
             }
         });
 
 
-
+/*************************      SIGN IN METHOD                *********************************************/
 
         signIN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
 
+                if (flag1==1 && flag2 == 1)
+                {
+                    loginUser(loginArray[0].toString(),loginArray[1].toString());
+                    showMessage("Confirmation","Working");
+                }
+                else
+                {
+                    Toast.makeText(login.this,"please make sure you filled correctly",Toast.LENGTH_SHORT).show();
+                }
 
-//                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
-//
-//                HashMap<String,String> map=new HashMap();
-//                map.put("Abi","almd");
-//                myRef.push().setValue(map);
 
             }
         });
@@ -140,7 +188,7 @@ public class login extends AppCompatActivity {
 
 
 
-         sign_up_textView=(TextView) findViewById(R.id.signUp_textview);
+        sign_up_textView=(TextView) findViewById(R.id.signUp_textview);
 
         sign_up_textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,13 +222,7 @@ public class login extends AppCompatActivity {
         }
     }
 
-    public void onClickFacebookButton(View view)
-    {
-        if(view == facebook_login_btn_custom)
-        {
-           // facebook_button.performClick();
-        }
-    }
+
 
 
     public boolean checkEmailValidation(String mail)
@@ -211,8 +253,34 @@ public class login extends AppCompatActivity {
     }
 
 
-    public void loginUser()
+    public void loginUser(String email,String password)
     {
+
+
+//        StringBuffer stringBuffer=new StringBuffer();
+//        stringBuffer.append(email+"\n");
+//        stringBuffer.append(password);
+//
+//        showMessage("User login Data",stringBuffer.toString());
+//        Toast.makeText(getApplicationContext(), email, Toast.LENGTH_SHORT).show();
+
+
+
+         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful())
+                {
+                    startActivity(new Intent(getApplicationContext(),DashBoard.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                    finish();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(login.this,e.toString(),Toast.LENGTH_LONG).show();
+            }
+        });
 
 
     }
