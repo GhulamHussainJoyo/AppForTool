@@ -49,6 +49,7 @@ public class RegisterMethod extends AppCompatActivity {
         if(user != null)
         {
             startActivity(new Intent(RegisterMethod.this,DashBoard.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            finish();
         }
 
     }

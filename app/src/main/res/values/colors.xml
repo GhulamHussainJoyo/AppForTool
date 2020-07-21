@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#E40114</color>
+
     <color name="colorPrimaryDark">#990614</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#B60214</color>
+    <color name="colorPrimary">#F13D52</color>
+
+
     <color name="tool_color">#C0031B</color>
 
     <color name="red">#E40114</color>

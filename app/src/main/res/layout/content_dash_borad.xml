@@ -13,64 +13,79 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="220dp"
         android:background="@drawable/dashboardbackground2"
-        android:gravity="center|left"
+
+
         >
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-
-            android:foreground="@drawable/ic_account"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="2dp" />
-
-        <LinearLayout
-            android:id="@+id/ProfileLinearLayout"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/profile_image"
-            android:orientation="vertical">
+            android:id="@+id/profilRelativeLayout"
+            android:layout_marginTop="40dp"
+            >
 
-            <TextView
-                android:id="@+id/Dashboard_PersonName"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+
+                android:foreground="@drawable/ic_account"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp" />
+
+            <LinearLayout
+                android:id="@+id/ProfileLinearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
-                android:inputType="text"
-                android:text="MAJID HUSSAIN"
-                android:textColor="#ffff"
-                android:textSize="12dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/profile_image"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/Dashboard_PersonName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:inputType="text"
+                    android:text="MAJID HUSSAIN"
+                    android:textColor="#ffff"
+                    android:textSize="13dp"
 
 
-                />
+                    />
 
-            <TextView
-                android:id="@+id/Dashboard_PersonPhoneNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/Dashboard_PersonName"
-                android:layout_gravity="center"
-                android:fontFamily="@font/roboto_condensed_light"
-                android:inputType="number"
-                android:text="+9230123456789"
-                android:textColor="#ffff"
+                <TextView
+                    android:id="@+id/Dashboard_PersonPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/Dashboard_PersonName"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto"
+                    android:inputType="number"
+                    android:text="+9230123456789"
+                    android:textColor="#ffff"
 
-                android:textSize="9dp"
+                    android:textSize="11dp"
 
-                />
-        </LinearLayout>
+                    />
+            </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+       <RelativeLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentRight="true"
+           android:id="@+id/profileRelativelayoutOfLoss"
+           android:layout_marginTop="40dp"
+           >
+            <LinearLayout
             android:id="@+id/ProfileLossLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:orientation="vertical"
             android:layout_marginTop="5dp"
 
@@ -88,7 +103,7 @@
                     android:fontFamily="@font/roboto"
                     android:text="This is loss by "
                     android:textColor="#ffff"
-                    android:textSize="10dp" />
+                    android:textSize="11dp" />
 
 
                 <TextView
@@ -107,7 +122,7 @@
                     android:fontFamily="@font/roboto"
                     android:text=" products:"
                     android:textColor="#ffff"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
 
                     />
 
@@ -128,7 +143,7 @@
                     android:fontFamily="@font/changa_one"
                     android:text="PKR"
                     android:textColor="#ffff"
-                    android:textSize="11dp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/Dashboard_lossPrice"
@@ -138,14 +153,14 @@
                     android:fontFamily="@font/changa_one"
                     android:text="123.0"
                     android:textColor="#ffff"
-                    android:textSize="25dp" />
+                    android:textSize="30dp" />
 
                 <ImageView
                     android:layout_width="10dp"
                     android:layout_height="10dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_error" />
+                    android:src="@drawable/ic_error_red" />
 
 
 
@@ -153,23 +168,25 @@
 
         </LinearLayout>
 
+       </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-            android:layout_below="@+id/ProfileLinearLayout"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
+           android:layout_alignParentBottom="true"
+            android:layout_marginBottom="60dp"
+
+            android:gravity=""
+
             android:layout_marginLeft="20dp">
 
 
             <Button
-                android:layout_width="120dp"
-                android:layout_height="20dp"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
                 android:background="@drawable/dashboard_additems_btn"
                 android:text="TAP TO ADD ITEMS"
-                android:textSize="9dp"
+                android:textSize="10dp"
                 android:fontFamily="@font/roboto_bold"
                 android:textColor="@android:color/white"/>
 
@@ -181,20 +198,20 @@
         <LinearLayout
             android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-            android:layout_below="@+id/ProfileLossLinearLayout"
+
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:orientation="horizontal"
-            android:gravity="center"
+          android:layout_marginBottom="60dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             >
 
             <Button
-                android:layout_width="120dp"
-                android:layout_height="20dp"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
                 android:background="@drawable/dashboard_additems_btn"
                 android:text="TAP TO SELL ITEMS"
-                android:textSize="9dp"
+                android:textSize="10dp"
                 android:fontFamily="@font/roboto_bold"
                 android:textColor="@android:color/white"/>
 
@@ -202,22 +219,219 @@
 
     </RelativeLayout >
 
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="-30dp"
-      >
+
           <androidx.cardview.widget.CardView
-            android:id="@+id/cardView_addItem1"
+            android:id="@+id/CardViewOfProgressBar"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="4dp"
             app:cardUseCompatPadding="true"
+              android:layout_marginTop="-30dp"
             >
-            </androidx.cardview.widget.CardView>
-  </RelativeLayout>
+              <TextView
+                  android:layout_marginTop="5sp"
+                  android:layout_marginLeft="10sp"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Remaining Details"
+                  android:textColor="@color/colorPrimaryDark"
+                  android:fontFamily="@font/roboto"
+                  android:textStyle="bold"
+
+                  android:textSize="12sp"
+                  />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+
+              android:orientation="horizontal"
+              >
+
+
+
+              <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="25dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SELL"
+                    android:textColor="@android:color/black"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="10sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="-10dp"
+                    android:textStyle="bold"
+
+                    />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+                    <ProgressBar
+                        android:id="@+id/sell_progressBar"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:indeterminate="false"
+                        android:progressDrawable="@drawable/circular_progress_bar"
+                        android:background="@drawable/circular_shape"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:max="100"
+                        android:progress="90" />
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:textColor="@android:color/darker_gray"
+                        android:text="135"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/roboto_bold"/>
+                </RelativeLayout>
+
+                  <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="out of .125"
+                    android:textColor="@android:color/black"
+                    android:textSize="11sp"
+                      android:layout_marginTop="-10dp"/>
+            </LinearLayout>
+
+
+
+
+
+              <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="25dp"
+                  android:layout_marginLeft="-10dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PURCHASE"
+                    android:textColor="@android:color/black"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="10sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="-10dp"
+                    android:textStyle="bold"
+
+                    />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+                    <ProgressBar
+                        android:id="@+id/purchase_progressBar"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:indeterminate="false"
+                        android:progressDrawable="@drawable/circular_progress_bar"
+                        android:background="@drawable/circular_shape"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:max="100"
+                        android:progress="40" />
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:textColor="@android:color/darker_gray"
+                        android:text="135"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/roboto_bold"/>
+                </RelativeLayout>
+
+                  <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="out of .125"
+                    android:textColor="@android:color/black"
+                    android:textSize="11dp"
+                      android:layout_marginTop="-10dp"/>
+            </LinearLayout>
+
+
+
+
+
+              <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="25dp"
+                  android:layout_marginLeft="-10dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TOTAL"
+                    android:textColor="@android:color/black"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="10sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="-10dp"
+                    android:textStyle="bold"
+
+                    />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+
+                    <ProgressBar
+                        android:id="@+id/total_progressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:background="@drawable/circular_shape"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="60"
+                        android:progressDrawable="@drawable/circular_progress_bar" />
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:textColor="@android:color/darker_gray"
+                        android:text="135"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/roboto_bold"/>
+
+
+                </RelativeLayout>
+
+                  <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="out of .125"
+                    android:textColor="@android:color/black"
+                    android:textSize="11dp" android:layout_marginTop="-10dp"/>
+            </LinearLayout>
+
+
+          </LinearLayout>
+
+          </androidx.cardview.widget.CardView>
+
 
 
 </LinearLayout>
