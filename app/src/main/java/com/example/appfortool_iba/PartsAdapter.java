@@ -82,6 +82,7 @@ public class PartsAdapter extends BaseAdapter {
 
         }
 
+
         if(convertView==null)
         {
             final LayoutInflater layoutInflater=LayoutInflater.from(mContext);

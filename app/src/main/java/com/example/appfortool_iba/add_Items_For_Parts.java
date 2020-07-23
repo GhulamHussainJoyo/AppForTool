@@ -3,15 +3,30 @@ package com.example.appfortool_iba;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.HashMap;
 
 import static com.example.appfortool_iba.main_layout_for_action.gridView;
 import static com.example.appfortool_iba.main_layout_for_action.partsAdapter;
@@ -20,11 +35,12 @@ import static com.example.appfortool_iba.main_layout_for_action.parts_list;
 
 public class add_Items_For_Parts extends AppCompatActivity
 {
-    private int parts_list_id;
+
+    String userID;
     private EditText nameOfPartsForInput1,nameOfPartsForInput2,nameOfPartsForInput3,nameOfPartsForInput4;
+    private TextInputLayout nameOfPartsForInput1Layout,nameOfPartsForInput2Layout,nameOfPartsForInput3Layout,nameOfPartsForInput4Layout;
 
 
-    String[] temp=new String[4];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,112 +48,113 @@ public class add_Items_For_Parts extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Intent userintent=getIntent();
+        userID=userintent.getStringExtra("userID");
 
-        Intent i=getIntent();
-        parts_list_id=i.getIntExtra("parts_list_id",-1);
-
-        nameOfPartsForInput1= findViewById(R.id.nameOfPartsForInput1);
-        nameOfPartsForInput2= findViewById(R.id.nameOfPartsForInput2);
-        nameOfPartsForInput3= findViewById(R.id.nameOfPartsForInput3);
-        nameOfPartsForInput4= findViewById(R.id.nameOfPartsForInput4);
-
-
-        if (parts_list_id!= -1) {
+        nameOfPartsForInput1Layout= findViewById(R.id.nameOfPartsForInput1Layout);
+        nameOfPartsForInput2Layout= findViewById(R.id.nameOfPartsForInput2Layout);
+        nameOfPartsForInput3Layout= findViewById(R.id.nameOfPartsForInput3Layout);
+        nameOfPartsForInput4Layout= findViewById(R.id.nameOfPartsForInput4Layout);
 
 
-            nameOfPartsForInput1.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-
-                    String local = String.valueOf(charSequence);
-                    temp[0]=local;
-                    parts_list.get(parts_list_id)[0]=local;
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-
-            nameOfPartsForInput2.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                    String local=String.valueOf(charSequence);
-                    temp[1]=local;
-                    parts_list.get(parts_list_id)[1]=local;
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-
-            nameOfPartsForInput3.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                    String local=String.valueOf(charSequence);
-                    temp[2]=local;
-                    parts_list.get(parts_list_id)[2]=local;
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-
-            nameOfPartsForInput4.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                    String local=String.valueOf(charSequence);
-                    temp[3]=local;
-                    parts_list.get(parts_list_id)[3]=local;
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-
-        }
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                //main_layout_for_action.mDataBase.InsertData(temp[0],temp[1],temp[2],temp[3]);
+                String nameOfPart=nameOfPartsForInput1Layout.getEditText().getText().toString();
+                String purcchase=nameOfPartsForInput2Layout.getEditText().getText().toString();
+                String sell=nameOfPartsForInput3Layout.getEditText().getText().toString();
+                String numberOfItems=nameOfPartsForInput4Layout.getEditText().getText().toString();
 
-                partsAdapter.notifyDataSetChanged();
-                gridView.setAdapter(partsAdapter);
-               // Intent intent=new Intent(new Intent(getApplicationContext(),main_layout_for_action.class));
-                finish();
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+                if (TextUtils.isEmpty(nameOfPart) || TextUtils.isEmpty(purcchase) || TextUtils.isEmpty(sell) || TextUtils.isEmpty(numberOfItems))
+                {
+                    nameOfPartsForInput1Layout.setError("This can not be Empty");
+                    nameOfPartsForInput2Layout.setError("This can not be Empty");
+                    nameOfPartsForInput3Layout.setError("This can not be Empty");
+                    nameOfPartsForInput4Layout.setError("This can not be Empty");
+
+                }
+                else if (nameOfPart.length() <= 2)
+                {
+                    nameOfPartsForInput1Layout.setError("Length greater than 2");
+
+                    nameOfPartsForInput2Layout.setError(null);
+                    nameOfPartsForInput2Layout.setErrorEnabled(false);
+
+                    nameOfPartsForInput3Layout.setError(null);
+                    nameOfPartsForInput3Layout.setErrorEnabled(false);
+
+                    nameOfPartsForInput4Layout.setError(null);
+                    nameOfPartsForInput4Layout.setErrorEnabled(false);
+                }
+                else if (Integer.parseInt(sell) == 0 || Integer.parseInt(purcchase) == 0 || Integer.parseInt(numberOfItems) == 0 )
+                {
+                    nameOfPartsForInput1Layout.setError(null);
+                    nameOfPartsForInput1Layout.setErrorEnabled(false);
+                    nameOfPartsForInput2Layout.setError("value can not be zero");
+                    nameOfPartsForInput3Layout.setError("value can not be zero");
+                    nameOfPartsForInput4Layout.setError("value can not be zero");
+                }
+                else
+                {
+                    nameOfPartsForInput1Layout.setError(null);
+                    nameOfPartsForInput1Layout.setErrorEnabled(false);
+
+                    nameOfPartsForInput2Layout.setError(null);
+                    nameOfPartsForInput2Layout.setErrorEnabled(false);
+
+                    nameOfPartsForInput3Layout.setError(null);
+                    nameOfPartsForInput3Layout.setErrorEnabled(false);
+
+                    nameOfPartsForInput4Layout.setError(null);
+                    nameOfPartsForInput4Layout.setErrorEnabled(false);
+
+                }
+
+
             }
         });
     }
+    private boolean AddDataIntoFirebase(final String name, final String purchase, final String sell, final String noOfItems)
+    {
+        final boolean[] check = {false};
+        DatabaseReference mRef=FirebaseDatabase.getInstance().getReference();
+        DatabaseReference userDataRefernce=mRef.child("User").child(userID).push();
+        HashMap<String,Object> map=new HashMap<>();
+        map.put("nameofparts",name);
+        map.put("purchase",purchase);
+        map.put("sell",sell);
+        map.put("numberofitems",noOfItems);
+
+        userDataRefernce.child("Parts").updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful())
+                {
+                    check[0]=true;
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                check[0]=false;
+                showMessage("error",e.toString());
+            }
+        });
+
+        return check[0];
+    }
+
+    public void showMessage(String title,String message)
+    {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.show();
+    }
+
 
 }

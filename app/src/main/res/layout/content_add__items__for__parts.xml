@@ -85,7 +85,7 @@
 
                         />
                     <com.google.android.material.textfield.TextInputLayout
-
+                        android:id="@+id/nameOfPartsForInput1Layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Name Of Part"
@@ -99,6 +99,7 @@
                             android:id="@+id/nameOfPartsForInput1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textAutoComplete"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -164,7 +165,7 @@
                     >
 
                     <com.google.android.material.textfield.TextInputLayout
-
+                        android:id="@+id/nameOfPartsForInput2Layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Purchase Price"
@@ -177,7 +178,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/nameOfPartsForInput2"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="number"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
@@ -285,7 +287,7 @@
                     >
 
                     <com.google.android.material.textfield.TextInputLayout
-
+                        android:id="@+id/nameOfPartsForInput3Layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Sell Price"
@@ -298,7 +300,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/nameOfPartsForInput3"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="number"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
@@ -402,6 +405,7 @@
 
                         />
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/nameOfPartsForInput4Layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Number Of items"
@@ -415,6 +419,7 @@
                             android:id="@+id/nameOfPartsForInput4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="number"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>

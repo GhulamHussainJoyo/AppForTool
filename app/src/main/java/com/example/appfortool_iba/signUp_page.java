@@ -75,29 +75,7 @@ public class signUp_page extends AppCompatActivity {
 
         mPhoneNumber = findViewById(R.id.PhoneNumber);
 
-        mFulName.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.length() <= 3)
-                {
-                    mFulName.setError("NAME IS TOO SHORT");
-                }
-                else
-                {
-                    mFulName.setError(null);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
 
         signUP=findViewById(R.id.signUP_btn);
 
@@ -137,11 +115,20 @@ public class signUp_page extends AppCompatActivity {
                 if(TextUtils.isEmpty(fullname) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(phoneNumber))
                 {
                     Toast.makeText(getApplicationContext(),"Text field tera baap bhare ga",Toast.LENGTH_LONG).show();
+                    mEmail.setError("This can not be Empty");
+                    mEmail.requestFocus();
+                    mFulName.setError("This can not be Empty");
+                    mFulName.requestFocus();
+                    mPhoneNumber.setError("This can not be Empty");
+                    mPhoneNumber.requestFocus();
+                    mPassword.setError("This can not be Empty");
+                    mPassword.requestFocus();
                 }
                 else if(!checkEmailValidation(email))
                 {
                     Toast.makeText(getApplicationContext(),email,Toast.LENGTH_LONG).show();
                     mEmail.setError("Wrong Mail");
+                    mEmail.requestFocus();
                 }
                 else if(password.length() < 4)
                 {
@@ -153,6 +140,13 @@ public class signUp_page extends AppCompatActivity {
                     mPassword.setError(null);
                     mEmail.setError(null);
                     mPhoneNumber.setError(null);
+                    mPassword.setError(null);
+
+                    mEmail.setErrorEnabled(false);
+                    mPassword.setErrorEnabled(false);
+                    mFulName.setErrorEnabled(false);
+                    mPhoneNumber.setErrorEnabled(false);
+
                     RegisterUser(fullname,phoneNumber,email,password);
                 }
 
@@ -213,6 +207,8 @@ public class signUp_page extends AppCompatActivity {
                 map.put("Name",fullName);
                 map.put("PhoneNumber",phoneNumber);
                 map.put("email",email);
+                map.put("flag",0);
+
 
 
                 mReference.child("User").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -223,6 +219,7 @@ public class signUp_page extends AppCompatActivity {
                             pd.dismiss();
                             Toast.makeText(getApplicationContext(),"Done ",Toast.LENGTH_LONG).show();
                             Intent intent=new Intent(signUp_page.this,DashBoard.class);
+                            intent.putExtra("flag","0");
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
 

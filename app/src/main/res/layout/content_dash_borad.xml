@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
                     android:inputType="text"
-                    android:text="MAJID HUSSAIN"
+
                     android:textColor="#ffff"
                     android:textSize="13dp"
 
@@ -66,7 +66,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/roboto"
                     android:inputType="number"
-                    android:text="+9230123456789"
+
                     android:textColor="#ffff"
 
                     android:textSize="11dp"
@@ -107,11 +107,12 @@
 
 
                 <TextView
+                    android:id="@+id/NumberOfLossItems"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold_italic"
                     android:inputType="number"
-                    android:text="2"
+
                     android:textColor="#ffff"
                     android:textSize="12dp" />
 
@@ -140,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/changa_one"
+                    android:fontFamily="@font/sanfranciscodisplayblack"
                     android:text="PKR"
                     android:textColor="#ffff"
                     android:textSize="12dp" />
@@ -150,8 +151,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/changa_one"
-                    android:text="123.0"
+                    android:fontFamily="@font/helve_thin"
+                    android:textStyle="bold"
+
                     android:textColor="#ffff"
                     android:textSize="30dp" />
 
@@ -182,6 +184,7 @@
 
 
             <Button
+                android:id="@+id/addItemsBtn"
                 android:layout_width="130dp"
                 android:layout_height="30dp"
                 android:background="@drawable/dashboard_additems_btn"
@@ -207,6 +210,7 @@
             >
 
             <Button
+                android:id="@+id/sellItemBtn"
                 android:layout_width="130dp"
                 android:layout_height="30dp"
                 android:background="@drawable/dashboard_additems_btn"
@@ -225,10 +229,11 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="4dp"
             app:cardElevation="4dp"
             app:cardUseCompatPadding="true"
               android:layout_marginTop="-30dp"
+
             >
               <TextView
                   android:layout_marginTop="5sp"
@@ -237,14 +242,14 @@
                   android:layout_height="wrap_content"
                   android:text="Remaining Details"
                   android:textColor="@color/colorPrimaryDark"
-                  android:fontFamily="@font/roboto"
+                  android:fontFamily="@font/nexa_bold"
                   android:textStyle="bold"
 
                   android:textSize="12sp"
                   />
           <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
 
               android:orientation="horizontal"
               >
@@ -264,7 +269,7 @@
                     android:layout_height="wrap_content"
                     android:text="SELL"
                     android:textColor="@android:color/black"
-                    android:fontFamily="@font/roboto"
+                    android:fontFamily="@font/nexa_bold"
                     android:textSize="10sp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="-10dp"
@@ -284,16 +289,17 @@
                         android:progressDrawable="@drawable/circular_progress_bar"
                         android:background="@drawable/circular_shape"
                         style="?android:attr/progressBarStyleHorizontal"
-                        android:max="100"
-                        android:progress="90" />
+
+                         />
                     <TextView
+                        android:id="@+id/sellProgressText"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:layout_centerInParent="true"
-                        android:textColor="@android:color/darker_gray"
-                        android:text="135"
+                        android:textColor="@android:color/black"
+
                         android:textSize="20sp"
-                        android:fontFamily="@font/roboto_bold"/>
+                        android:fontFamily="@font/helve_thin"/>
                 </RelativeLayout>
 
                   <TextView
@@ -323,7 +329,7 @@
                     android:layout_height="wrap_content"
                     android:text="PURCHASE"
                     android:textColor="@android:color/black"
-                    android:fontFamily="@font/roboto"
+                    android:fontFamily="@font/nexa_bold"
                     android:textSize="10sp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="-10dp"
@@ -343,16 +349,18 @@
                         android:progressDrawable="@drawable/circular_progress_bar"
                         android:background="@drawable/circular_shape"
                         style="?android:attr/progressBarStyleHorizontal"
-                        android:max="100"
-                        android:progress="40" />
+
+                        />
                     <TextView
+                        android:id="@+id/purchaseProgressText"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:layout_centerInParent="true"
-                        android:textColor="@android:color/darker_gray"
-                        android:text="135"
+                        android:textColor="@android:color/black"
+
                         android:textSize="20sp"
-                        android:fontFamily="@font/roboto_bold"/>
+                        android:fontFamily="@font/helve_thin"
+                        android:textStyle="bold"/>
                 </RelativeLayout>
 
                   <TextView
@@ -382,7 +390,7 @@
                     android:layout_height="wrap_content"
                     android:text="TOTAL"
                     android:textColor="@android:color/black"
-                    android:fontFamily="@font/roboto"
+                    android:fontFamily="@font/nexa_bold"
                     android:textSize="10sp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="-10dp"
@@ -403,18 +411,18 @@
                         android:layout_height="120dp"
                         android:background="@drawable/circular_shape"
                         android:indeterminate="false"
-                        android:max="100"
-                        android:progress="60"
+
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
                     <TextView
+                        android:id="@+id/totalprogressText"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:layout_centerInParent="true"
-                        android:textColor="@android:color/darker_gray"
-                        android:text="135"
+                        android:textColor="@android:color/black"
                         android:textSize="20sp"
-                        android:fontFamily="@font/roboto_bold"/>
+                          android:fontFamily="@font/helve_thin"
+                        android:textStyle="bold"/>
 
 
                 </RelativeLayout>
@@ -432,6 +440,288 @@
 
           </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+        android:id="@+id/CardViewOfProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true"
+        >
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Short Items"
+                android:fontFamily="@font/nexa_bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+
+                />
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Please Scroll Down"
+                android:fontFamily="@font/nexa_bold"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+
+                />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            >
+            <ListView
+                android:id="@+id/lossItemsInListView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
 
 
+        </LinearLayout>
+        </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+
+
+
+
+            >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+
+
+
+                >
+                <androidx.cardview.widget.CardView
+
+                    android:layout_width="5dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    app:cardElevation="12dp"
+                    app:cardCornerRadius="4dp"
+                    android:layout_marginBottom="2dp"
+
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+
+
+                        >
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_items"
+                            android:gravity="center"
+                            />
+
+                        <Button
+                            android:id="@+id/items"
+                            android:layout_width="40dp"
+                            android:layout_height="18dp"
+                            android:text="ITEMS"
+                            android:background="@color/transparent"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/nexa_bold"
+                            android:textSize="10dp"
+                            android:layout_gravity="center"
+                            />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+
+                    android:layout_width="5dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_marginLeft="2dp"
+                    app:cardElevation="12dp"
+                    app:cardCornerRadius="4dp"
+
+
+
+
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+
+
+                        >
+                      <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/loss_image"
+                            android:gravity="center"
+                            android:layout_marginBottom="-10dp"
+                            />
+
+                        <Button
+                            android:id="@+id/loss"
+                            android:layout_width="40dp"
+                            android:layout_height="18dp"
+                            android:text="LOSS"
+                            android:background="@color/transparent"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/nexa_bold"
+                            android:textSize="10dp"
+                            android:layout_gravity="center"
+                            />
+
+
+
+                 </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+
+                <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+
+                >
+                <androidx.cardview.widget.CardView
+
+                    android:layout_width="5dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    app:cardElevation="12dp"
+                    app:cardCornerRadius="4dp"
+                    android:layout_marginBottom="1dp"
+
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+
+
+                        >
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/profit"
+                            android:gravity="center"
+                            android:layout_marginBottom="-10dp"
+                            />
+
+                        <Button
+                            android:id="@+id/profit"
+                            android:layout_width="40dp"
+                            android:layout_height="18dp"
+                            android:text="PROFIT"
+                            android:background="@color/transparent"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/nexa_bold"
+                            android:textSize="10dp"
+                            android:layout_gravity="center"
+                            />
+
+
+                </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+
+                    android:layout_width="5dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:layout_marginLeft="2dp"
+                    app:cardElevation="12dp"
+                    app:cardCornerRadius="4dp"
+
+
+
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+
+
+                        >
+
+
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/sell_details_items"
+                            android:gravity="center"
+                            android:layout_marginBottom="-10dp"
+                            />
+
+                        <Button
+                            android:id="@+id/sell"
+                            android:layout_width="40dp"
+                            android:layout_height="18dp"
+                            android:text="SELL"
+                            android:background="@color/transparent"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/nexa_bold"
+                            android:textSize="10dp"
+                            android:layout_gravity="center"
+                            />
+
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
 </LinearLayout>

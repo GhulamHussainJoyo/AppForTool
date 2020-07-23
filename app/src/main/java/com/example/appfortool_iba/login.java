@@ -271,14 +271,17 @@ public class login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful())
                 {
-                    startActivity(new Intent(getApplicationContext(),DashBoard.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+                    startActivity(new Intent(getApplicationContext(),DashBoard.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            .putExtra("flag","1"));
                     finish();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(login.this,e.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(login.this,"Email or password is wrong",Toast.LENGTH_LONG).show();
+
             }
         });
 
