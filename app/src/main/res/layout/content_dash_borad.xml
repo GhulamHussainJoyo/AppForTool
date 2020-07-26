@@ -28,20 +28,21 @@
             >
 
             <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profile_image"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-
-                android:foreground="@drawable/ic_account"
-                app:civ_border_color="#FF000000"
-                app:civ_border_width="2dp" />
+                android:src="@drawable/profile_image"
+                app:civ_border_width="1dp"
+                app:civ_border_color="#FF000000"/>
 
             <LinearLayout
                 android:id="@+id/ProfileLinearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="2dp"
                 android:layout_toRightOf="@id/profile_image"
                 android:orientation="vertical">
 
@@ -66,7 +67,6 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/roboto"
                     android:inputType="number"
-
                     android:textColor="#ffff"
 
                     android:textSize="11dp"
@@ -175,12 +175,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_alignParentBottom="true"
-            android:layout_marginBottom="60dp"
-
-            android:gravity=""
-
-            android:layout_marginLeft="20dp">
+           android:layout_marginLeft="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="70dp">
 
 
             <Button
@@ -200,13 +197,11 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-
-            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-          android:layout_marginBottom="60dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="70dp"
             >
 
             <Button
@@ -217,6 +212,28 @@
                 android:text="TAP TO SELL ITEMS"
                 android:textSize="10dp"
                 android:fontFamily="@font/roboto_bold"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+
+          <LinearLayout
+            android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           android:layout_marginLeft="20dp"
+           android:layout_marginRight="20dp"
+           android:layout_marginBottom="30dp"
+            >
+
+            <Button
+                android:id="@+id/addNewItemsBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/dashboard_additems_btn"
+                android:text="TAP  TO  ADD  NEW  ITEMS"
+                android:textSize="11dp"
+                android:fontFamily="@font/nexa_bold"
                 android:textColor="@android:color/white"/>
 
         </LinearLayout>
@@ -282,7 +299,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center">
                     <ProgressBar
-                        android:id="@+id/sell_progressBar"
+                        android:id="@+id/sell1_progressBar"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:indeterminate="false"
@@ -327,7 +344,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PURCHASE"
+                    android:text="ITEMS"
                     android:textColor="@android:color/black"
                     android:fontFamily="@font/nexa_bold"
                     android:textSize="10sp"
@@ -342,7 +359,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center">
                     <ProgressBar
-                        android:id="@+id/purchase_progressBar"
+                        android:id="@+id/item_progressBar"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:indeterminate="false"
@@ -352,7 +369,7 @@
 
                         />
                     <TextView
-                        android:id="@+id/purchaseProgressText"
+                        android:id="@+id/itemProgressText"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:layout_centerInParent="true"
@@ -388,7 +405,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TOTAL"
+                    android:text="PROFIT"
                     android:textColor="@android:color/black"
                     android:fontFamily="@font/nexa_bold"
                     android:textSize="10sp"
@@ -405,7 +422,7 @@
 
 
                     <ProgressBar
-                        android:id="@+id/total_progressBar"
+                        android:id="@+id/profit_progressBar"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
@@ -415,7 +432,7 @@
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
                     <TextView
-                        android:id="@+id/totalprogressText"
+                        android:id="@+id/profitprogressText"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:layout_centerInParent="true"

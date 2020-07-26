@@ -1,5 +1,6 @@
 package com.example.appfortool_iba;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +29,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.appfortool_iba.main_layout_for_action.gridView;
 import static com.example.appfortool_iba.main_layout_for_action.partsAdapter;
@@ -111,40 +114,188 @@ public class add_Items_For_Parts extends AppCompatActivity
                     nameOfPartsForInput4Layout.setError(null);
                     nameOfPartsForInput4Layout.setErrorEnabled(false);
 
+
+
+                        if (AddDataIntoFirebase(nameOfPart,purcchase,sell,numberOfItems) == true)
+                        {
+                            startActivity(new Intent(add_Items_For_Parts.this,DashBoard.class).putExtra("while","true"));
+                            finish();
+                        }
+                        else
+                        {
+
+                            Toast.makeText(add_Items_For_Parts.this,"Not added into Database",Toast.LENGTH_LONG).show();
+                        }
+
+
                 }
 
 
             }
         });
     }
-    private boolean AddDataIntoFirebase(final String name, final String purchase, final String sell, final String noOfItems)
+    private boolean AddDataIntoFirebase(final String name, final String purchase_price, final String sell, final String total)
     {
-        final boolean[] check = {false};
-        DatabaseReference mRef=FirebaseDatabase.getInstance().getReference();
-        DatabaseReference userDataRefernce=mRef.child("User").child(userID).push();
-        HashMap<String,Object> map=new HashMap<>();
-        map.put("nameofparts",name);
-        map.put("purchase",purchase);
-        map.put("sell",sell);
-        map.put("numberofitems",noOfItems);
 
-        userDataRefernce.child("Parts").updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+        final boolean[] check={true,true,true,true};
+        DatabaseReference mRef=FirebaseDatabase.getInstance().getReference("User");
+        final DatabaseReference userDataRefernce=mRef.child(userID);
+
+        final HashMap<String,Object> map=new HashMap<>();
+        map.put("name_of_parts",name);
+        map.put("purchase_price",purchase_price);
+        map.put("sell",sell);
+        map.put("Number_of_items",total);
+
+        userDataRefernce.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful())
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child("flag").exists())
                 {
-                    check[0]=true;
+
+                    int temp=snapshot.child("flag").getValue(Integer.class);
+
+                    userDataRefernce.child("Parts").child(String.valueOf(temp)).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                           if (task.isSuccessful())
+                           {
+                               check[0]=true;
+                           }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            showMessage("error",e.toString());
+                        }
+                    });
+
+                    int inc=temp;
+                    inc++;
+
+
+                    userDataRefernce.child("flag").setValue(inc).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                            if (task.isSuccessful())
+                            {
+                                check[1]=true;
+                            }
+                            else
+                            {
+
+                                showMessage("flag","not changed");
+                            }
+                        }
+                    });
+
+                }
+                else
+                {
+                    showMessage("flag","no Exist");
                 }
             }
-        }).addOnFailureListener(new OnFailureListener() {
+
             @Override
-            public void onFailure(@NonNull Exception e) {
-                check[0]=false;
-                showMessage("error",e.toString());
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
-        return check[0];
+
+        userDataRefernce.child("total").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                {
+                    int temp=snapshot.getValue(Integer.class);
+                    temp+=Integer.parseInt(total);
+                    userDataRefernce.child("total").setValue(temp).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful())
+                            {
+                                check[2]=true;
+                            }
+                            else
+                            {
+                                showMessage("total","no Exist");
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            showMessage("error",e.toString());
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+        userDataRefernce.child("purchase").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                {
+                    int temp=snapshot.getValue(Integer.class);
+                    temp+=Integer.parseInt(total);
+                    userDataRefernce.child("purchase").setValue(temp).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful())
+                            {
+                                check[3]=true;
+                            }
+                            else
+                            {
+                                check[3]=false;
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            showMessage("error",e.toString());
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+        if (check[0] == true && check[1] == true && check[2] == true && check[3] == true)
+        {
+
+            return true;
+
+        }
+        else
+        {
+
+            showMessage("return Else","Ye False return kar raha ha");
+            return false;
+        }
+
+
     }
 
     public void showMessage(String title,String message)

@@ -201,21 +201,24 @@ public class signUp_page extends AppCompatActivity {
 
             @Override
             public void onSuccess(AuthResult authResult) {
-                HashMap<String,Object> map=new HashMap<>();
-
-                map.put("Id",mAuth.getCurrentUser().getUid());
-                map.put("Name",fullName);
-                map.put("PhoneNumber",phoneNumber);
-                map.put("email",email);
-                map.put("flag",0);
 
 
 
-                mReference.child("User").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    HashMap<String,Object> map=new HashMap<>();
+                    map.put("id",mAuth.getCurrentUser().getUid());
+                    map.put("name",fullName);
+                    map.put("email",email);
+                    map.put("phoneNumber",phoneNumber);
+
+                    Parts parts=new Parts(0,0,0,0,map);
+
+
+                mReference.child("User").child(mAuth.getCurrentUser().getUid()).setValue(parts).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful())
                         {
+
                             pd.dismiss();
                             Toast.makeText(getApplicationContext(),"Done ",Toast.LENGTH_LONG).show();
                             Intent intent=new Intent(signUp_page.this,DashBoard.class);
@@ -225,10 +228,6 @@ public class signUp_page extends AppCompatActivity {
 
 
                         }
-
-
-
-
                     }
 
 
@@ -245,5 +244,65 @@ public class signUp_page extends AppCompatActivity {
             }
         });
 
+    }
+
+    private class Parts
+    {
+        private int purchase;
+        private int sell;
+        private int total;
+        private int flag;
+        HashMap<String,Object> user_data;
+
+
+
+        public Parts(int purchase, int sell, int total,int flag, HashMap<String, Object> User_Data) {
+            this.purchase = purchase;
+            this.sell = sell;
+            this.total = total;
+            this.flag = flag;
+            this.user_data = User_Data;
+        }
+
+
+        public int getFlag() {
+            return flag;
+        }
+
+        public void setFlag(int flag) {
+            this.flag = flag;
+        }
+
+        public int getPurchase() {
+            return purchase;
+        }
+
+        public void setPurchase(int purchase) {
+            this.purchase = purchase;
+        }
+
+        public int getSell() {
+            return sell;
+        }
+
+        public void setSell(int sell) {
+            this.sell = sell;
+        }
+
+        public int getTotal() {
+            return total;
+        }
+
+        public void setTotal(int total) {
+            this.total = total;
+        }
+
+        public HashMap<String, Object> getUser_data() {
+            return user_data;
+        }
+
+        public void setUser_data(HashMap<String, Object> user_data) {
+            this.user_data = user_data;
+        }
     }
 }

@@ -50,7 +50,7 @@ public class RegisterMethod extends AppCompatActivity {
        try {
            if(user.getUid() != null)
            {
-               Toast.makeText(RegisterMethod.this,"Dashboard",Toast.LENGTH_LONG).show();
+              // Toast.makeText(RegisterMethod.this,"Dashboard",Toast.LENGTH_LONG).show();
                startActivity(new Intent(RegisterMethod.this,DashBoard.class).putExtra("flag","0"));
                finish();
            }
