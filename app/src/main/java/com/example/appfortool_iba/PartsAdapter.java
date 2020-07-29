@@ -56,7 +56,7 @@ public class PartsAdapter extends BaseAdapter {
         String head = "";
         String tail = "";
 
-       // final int inex=books[position];
+
         String[] parts_string_name;
         parts_string_name=parts.get(position);
 

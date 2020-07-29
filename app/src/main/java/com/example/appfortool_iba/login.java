@@ -40,6 +40,7 @@ public class login extends AppCompatActivity {
     private TextInputLayout mEmailLayout,mPasswordlayout;
     private TextView sign_up_textView;
     private EditText email,password;
+    Add_Data_Into_SQL_From_Firebase  sql_from_firebase;
 
     FirebaseAuth mAuth;
 
@@ -271,7 +272,6 @@ public class login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful())
                 {
-
                     startActivity(new Intent(getApplicationContext(),DashBoard.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP)
                             .putExtra("flag","1"));
                     finish();

@@ -68,22 +68,79 @@ public class DataBase_Of_Parts extends SQLiteOpenHelper
     }
 
 
+
     @Override
     public void onCreate(SQLiteDatabase db)
     {
 
-        db.execSQL("create table USER_DATA(" +
+        db.execSQL("create table user_data(" +
 
                 "Id INTEGER primary key AUTOINCREMENT not null," +
 
-                "Full_Name text not null," +
+                "user_id text not null," +
 
-                "Email text not null," +
+                "name text not null," +
 
-                "Password text not null)");
+                "email text not null," +
+
+                "phoneNumber not null)");
+
+
+        db.execSQL("create table Business_account(" +
+
+                "Id INTEGER primary key AUTOINCREMENT not null," +
+
+                "sell text not null," +
+
+                "purchase text not null," +
+
+                "total text not null)");
+
+
+
+
+
+
+
+        db.execSQL("create table Parts(" +
+
+                "Id INTEGER primary key AUTOINCREMENT not null," +
+
+                "Number_of_items text not null," +
+
+                "name_of_parts text not null," +
+
+                "purchase_price text not null," +
+
+                "sell text not null," +
+
+                "user_id text not null)");
+
+
+        db.execSQL("create table Loss(" +
+
+                "Id INTEGER primary key AUTOINCREMENT not null," +
+
+                "name_of_parts text not null," +
+
+                "price text not null," +
+
+                "user_id text not null)");
+
+        db.execSQL("create table Profit(" +
+
+                "Id INTEGER primary key AUTOINCREMENT not null," +
+
+                "name_of_parts text not null," +
+
+                "price text not null," +
+
+                "user_id text not null)");
+
 
 
     }
+
     public void createTableRecordsOfParts(SQLiteDatabase db,String TABLE_NAME)
     {
         db.execSQL("create table "+ TABLE_NAME +
@@ -103,8 +160,11 @@ public class DataBase_Of_Parts extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        db.execSQL(String.format("DROP TABLE IF EXISTS%s", TABLE_NAME_USER_DATA));
+        db.execSQL(String.format("DROP TABLE IF EXISTS%s", "user_data","Parts","Loss","Profit"));
         onCreate(db);
+
+
+
 
     }
 
@@ -131,7 +191,103 @@ public class DataBase_Of_Parts extends SQLiteOpenHelper
 
 
     }
+    public boolean InsertUserData( String user_id,
+                              String name,
+                              String email,
+                              String phoneNumber )
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues contentValues=new ContentValues();
+        contentValues.put("user_id",user_id);
+        contentValues.put("name",name);
+        contentValues.put("email",email);
+        contentValues.put("phoneNumber",phoneNumber);
 
+
+        long result =db.insert("user_data",null,contentValues);
+
+        if (result == -1)
+        {
+            return true;
+        }
+        else return false;
+
+
+    }
+
+
+    public boolean InsertPartData( String numberOfParts,
+                                   String nameOfPart,
+                                   String purchasePrice,
+                                   String sell ,
+                                   String user_id)
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues contentValues=new ContentValues();
+        contentValues.put("Number_of_items",numberOfParts);
+        contentValues.put("name_of_parts",nameOfPart);
+        contentValues.put("purchase_price",purchasePrice);
+        contentValues.put("sell",sell);
+        contentValues.put("user_id",user_id);
+
+
+        long result =db.insert("Parts",null,contentValues);
+
+        if (result == -1)
+        {
+            return true;
+        }
+        else return false;
+
+
+    }
+
+    public boolean InsertLossData( String nameOfParts,
+                                   String price,
+                                   String user_id
+                                   )
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues contentValues=new ContentValues();
+        contentValues.put("name_of_parts",nameOfParts);
+        contentValues.put("price",price);
+        contentValues.put("user_id",user_id);
+
+
+        long result =db.insert("Loss",null,contentValues);
+
+        if (result == -1)
+        {
+            return true;
+        }
+        else return false;
+
+
+    }
+
+
+    public boolean InserProfitData( String nameOfParts,
+                                   String price,
+                                    String user_id
+    )
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues contentValues=new ContentValues();
+        contentValues.put("name_of_parts",nameOfParts);
+        contentValues.put("price",price);
+        contentValues.put("user_id",user_id);
+
+
+        long result =db.insert("Profit",null,contentValues);
+
+        if (result == -1)
+        {
+            return true;
+        }
+        else return false;
+
+
+    }
 
     public boolean InsertDataLogin(String name,String Email,String password)
     {
@@ -171,6 +327,36 @@ public class DataBase_Of_Parts extends SQLiteOpenHelper
     }
 
 
+    Cursor getUserDataWithId(String userId)
+    {
+        //where user_id = '"+userid+"'"
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from user_data where user_id = '"+userId+"'",null);
+        return res;
+
+    }
+    public Cursor showAllTablesData(String NAME)
+    {
+        //where user_id = '"+userid+"'"
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from "+NAME,null);
+        return res;
+    }
+
+    public Cursor getData(String userid,String TABLE_NAME)
+    {
+        //where user_id = '"+userid+"'"
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from "+TABLE_NAME+" where user_id = '"+userid+"'",null);
+        return res;
+    }
+
+    public void removeUser_dataDuplicasy()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.rawQuery("Delete from user_data where rowid not in (select min(rowid) from user_data group by user_id,name,email,phoneNumber)",null);
+    }
 
     public Cursor ShowAllData()
     {
@@ -209,6 +395,20 @@ public class DataBase_Of_Parts extends SQLiteOpenHelper
             return false;
         }
     }
+
+    public boolean isEmpty(String NAME){
+
+        SQLiteDatabase database = this.getReadableDatabase();
+        int NoOfRows = (int) DatabaseUtils.queryNumEntries(database,NAME);
+
+        if (NoOfRows == 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
 
     public boolean isEmptyUserData(){
 
@@ -252,6 +452,7 @@ public class DataBase_Of_Parts extends SQLiteOpenHelper
 
         return true;
     }
+
 
 
 
