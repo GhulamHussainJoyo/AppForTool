@@ -16,7 +16,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -52,7 +54,7 @@ public class DashBoard extends AppCompatActivity {
     private ProgressBar sellProgressBar, itemProgressBar, profitProgressBar;
     private ListView lossItemsListView;
     private Dialog epicDialog;
-    private ImageView cancel_btn_image;
+    private ImageView cancel_btn_image,itemImageView,lossImageView,profitImageView,sellImageView;
     private TextInputLayout nameOfSellingItem, priceOfSellingItem;
     private EditText flagEditText;
 
@@ -148,6 +150,12 @@ public class DashBoard extends AppCompatActivity {
         flagEditText = findViewById(R.id.flag);
         flagEditText.setText("False");
 
+        /*********************** initializing  Image View ***************************/
+
+        itemImageView = findViewById(R.id.itemImageView);
+        lossImageView = findViewById(R.id.lossImageView);
+        profitImageView = findViewById(R.id.profitImageView);
+        sellImageView = findViewById(R.id.sellImageView);
 
         /*********************** initializing  Database from Firebase  ***************************/
 
@@ -193,8 +201,8 @@ public class DashBoard extends AppCompatActivity {
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "GO to Button", Toast.LENGTH_LONG).show();
-                showSellDialogBox();
+
+                showAddItemBox();
             }
         });
 
@@ -208,6 +216,191 @@ public class DashBoard extends AppCompatActivity {
             }
         });
 
+
+        item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(myContext,main_layout_for_action.class).putExtra("userId",userId));
+            }
+        });
+
+        itemImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(myContext,main_layout_for_action.class).putExtra("userId",userId));
+
+            }
+        });
+
+    }
+
+    void showAddItemBox()
+    {
+        final Dialog epicDialog=new Dialog(this);
+        epicDialog.setContentView(R.layout.add_dialog);
+
+        go_btn = epicDialog.findViewById(R.id.GO_btn);
+        cancel_btn_image = epicDialog.findViewById(R.id.cancel_button_Image);
+
+        nameOfSellingItem = epicDialog.findViewById(R.id.nameOfSellingItem);
+        final TextInputLayout numberOfAddingItems = epicDialog.findViewById(R.id.priceOfSellingItem);
+
+        epicDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+        cancel_btn_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                epicDialog.dismiss();
+            }
+        });
+
+        nameOfSellingItem.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                editable.toString().toLowerCase();
+
+                if (!TextUtils.isEmpty(editable))
+                {
+                    final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("User").child(userId);
+
+                    Query query = mRef.child("Parts").orderByChild("name_of_parts").equalTo(String.valueOf(editable));
+
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            if (!snapshot.exists())
+                            {
+                                //Toast.makeText(DashBoard.this, snapshot.toString(), Toast.LENGTH_SHORT).show();
+
+                                nameOfSellingItem.setError("not found");
+                                nameOfSellingItem.requestFocus();
+
+                            }
+                            else
+                            {
+
+                                nameOfSellingItem.setError(null);
+                                nameOfSellingItem.setErrorEnabled(false);
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+                }
+
+            }
+        });
+
+        go_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final String name = nameOfSellingItem.getEditText().getText().toString().trim().toLowerCase();
+                final String numbeOftems = numberOfAddingItems.getEditText().getText().toString().trim().toLowerCase();
+
+
+
+                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(numbeOftems)) {
+                    nameOfSellingItem.setError("Empty");
+                    nameOfSellingItem.requestFocus();
+                    numberOfAddingItems.setError("Empty");
+                    numberOfAddingItems.requestFocus();
+
+
+
+                } else if (TextUtils.isEmpty(name)) {
+
+                    nameOfSellingItem.setError("Empty");
+                    numberOfAddingItems.setError(null);
+                    numberOfAddingItems.setErrorEnabled(false);
+
+                } else if (TextUtils.isEmpty(numbeOftems)) {
+
+                    numberOfAddingItems.setError("Empty");
+                    numberOfAddingItems.requestFocus();
+                    nameOfSellingItem.setError(null);
+                    nameOfSellingItem.setErrorEnabled(false);
+
+                }else
+                {
+                    final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("User").child(userId);
+
+                    Query query = mRef.child("Parts").orderByChild("name_of_parts").equalTo(name);
+
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            if (snapshot.exists()) {
+                                //Toast.makeText(DashBoard.this, snapshot.toString(), Toast.LENGTH_SHORT).show();
+                                Log.i(TAG, snapshot.toString());
+                                numberOfAddingItems.setError(null);
+                                numberOfAddingItems.setErrorEnabled(false);
+
+                                nameOfSellingItem.setError(null);
+                                nameOfSellingItem.setErrorEnabled(false);
+
+                                int noOfItems  = 0;
+                                String key = null;
+                                for (DataSnapshot fields : snapshot.getChildren()) {
+                                    noOfItems = Integer.parseInt(fields.child("Number_of_items").getValue(String.class));
+                                    key = fields.getKey();
+
+                                }
+                                noOfItems+=Integer.parseInt(numbeOftems);
+
+                                mRef.child("Parts").child(key).child("Number_of_items").setValue(String.valueOf(noOfItems)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(myContext,"Updated Number of Parts",Toast.LENGTH_LONG).show();
+                                        epicDialog.dismiss();
+
+                                    }
+                                });
+
+                            }
+                            else
+                            {
+                                nameOfSellingItem.setError("not available");
+                                nameOfSellingItem.requestFocus();
+
+                                if(!TextUtils.isEmpty(numbeOftems))
+                                {
+                                    numberOfAddingItems.setError(null);
+                                    numberOfAddingItems.setErrorEnabled(false);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+            }
+        });
+        epicDialog.show();
     }
 
     @Override
@@ -215,6 +408,10 @@ public class DashBoard extends AppCompatActivity {
         super.onStart();
         setProfileName_Number(personNameDashbord,personNumberDashbord);
     }
+
+
+
+
 
     private void showSellDialogBox() {
         final Dialog epiDailog = new Dialog(this);
@@ -236,13 +433,73 @@ public class DashBoard extends AppCompatActivity {
         });
 
 
+        nameOfSellingItem.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                if (!TextUtils.isEmpty(editable))
+                {
+                    final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("User").child(userId);
+
+                    Query query = mRef.child("Parts").orderByChild("name_of_parts").equalTo(String.valueOf(editable).toLowerCase());
+
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            if (snapshot.exists())
+                            {
+                                //Toast.makeText(DashBoard.this, snapshot.toString(), Toast.LENGTH_SHORT).show();
+                                Log.i(TAG,snapshot.toString());
+
+
+                                nameOfSellingItem.setError(null);
+                                nameOfSellingItem.setErrorEnabled(false);
+
+                                int purchase_price = 0;
+                                for(DataSnapshot fields : snapshot.getChildren())
+                                {
+                                    purchase_price = Integer.parseInt(fields.child("purchase_price").getValue(String.class));
+
+                                }
+                                nameOfSellingItem.setError("purchase price is : "+String.valueOf(purchase_price));
+
+                            }
+                            else
+                            {
+                                nameOfSellingItem.setError(null);
+                                nameOfSellingItem.setErrorEnabled(false);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+                }
+
+            }
+        });
 
         go_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                final String name = nameOfSellingItem.getEditText().getText().toString();
-                final String price = priceOfSellingItem.getEditText().getText().toString();
+                final String name = nameOfSellingItem.getEditText().getText().toString().trim().toLowerCase();
+                final String price = priceOfSellingItem.getEditText().getText().toString().trim().toLowerCase();
 
 
 
@@ -354,6 +611,7 @@ public class DashBoard extends AppCompatActivity {
                                                             HashMap map = new HashMap();
                                                             map.put("name_of_parts",name);
                                                             map.put("price",String.valueOf(profit));
+                                                            //map.put("date",getDa)
 
                                                             mRef.child("Profit").push().setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override

@@ -15,6 +15,7 @@
     <string name="fb_login_protocol_scheme">fb3053743641378084</string>
 
     <string name = "sell_Dialog_title">PLEASE FILL THE NAME OF ITEM AND SELLING PRICE</string>
+    <string name = "add_Dialog_title">PLEASE ADD THE NAME OF ITEM AND NUMBER OF ITEMS</string>
 
 
 </resources>

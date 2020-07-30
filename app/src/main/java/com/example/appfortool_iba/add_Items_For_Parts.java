@@ -34,6 +34,7 @@ import java.util.Map;
 import static com.example.appfortool_iba.main_layout_for_action.gridView;
 import static com.example.appfortool_iba.main_layout_for_action.partsAdapter;
 import static com.example.appfortool_iba.main_layout_for_action.parts_list;
+import static com.google.firebase.firestore.core.UserData.Source.Update;
 
 
 public class add_Items_For_Parts extends AppCompatActivity
@@ -66,10 +67,10 @@ public class add_Items_For_Parts extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                String nameOfPart=nameOfPartsForInput1Layout.getEditText().getText().toString();
-                String purcchase=nameOfPartsForInput2Layout.getEditText().getText().toString();
-                String sell=nameOfPartsForInput3Layout.getEditText().getText().toString();
-                String numberOfItems=nameOfPartsForInput4Layout.getEditText().getText().toString();
+                String nameOfPart=nameOfPartsForInput1Layout.getEditText().getText().toString().trim().toLowerCase();
+                String purcchase=nameOfPartsForInput2Layout.getEditText().getText().toString().trim().toLowerCase();
+                String sell=nameOfPartsForInput3Layout.getEditText().getText().toString().trim().toLowerCase();
+                String numberOfItems=nameOfPartsForInput4Layout.getEditText().getText().toString().trim().toLowerCase();
 
                 if (TextUtils.isEmpty(nameOfPart) || TextUtils.isEmpty(purcchase) || TextUtils.isEmpty(sell) || TextUtils.isEmpty(numberOfItems))
                 {
@@ -120,6 +121,7 @@ public class add_Items_For_Parts extends AppCompatActivity
                         {
                             startActivity(new Intent(add_Items_For_Parts.this,DashBoard.class).putExtra("while","true"));
                             finish();
+                            main_layout_for_action.Update();
                         }
                         else
                         {

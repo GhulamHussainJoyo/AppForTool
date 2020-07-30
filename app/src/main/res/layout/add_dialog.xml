@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/price_bag"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:shape="ring"
+            app:cardCornerRadius="55dp"
+            app:cardElevation="5dp"
+
+            android:layout_marginBottom="-25dp"
+            android:layout_marginRight="0dp"
+            >
+
+            <ImageView
+                android:id="@+id/cancel_button_Image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                app:srcCompat="@drawable/ic_cancel_red"
+
+                />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_below="@+id/price_bag"
+            android:id="@+id/cardView_addItem1"
+            android:layout_width="fill_parent"
+            android:layout_height="330dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="9dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true"
+
+            >
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/rounded_shape_for_selling_dialog"
+
+                >
+
+
+                <LinearLayout
+                    android:id="@+id/selling_title_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_Dialog_title"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sanfranciscoblack"
+                        android:textSize="11sp"
+                        android:letterSpacing="0.1"
+
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_below="@+id/selling_title_layout"
+                    android:id="@+id/sellintInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="55dp"
+
+
+                    >
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/nameOfSellingItem"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Name Of Part"
+
+
+
+
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/nameOfSellingItemInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textAutoComplete"
+                            android:fontFamily="@font/nexa_bold"
+
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/priceOfSellingItem"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Number Of Items"
+
+
+
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/numberOfSellingItemInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:fontFamily="@font/nexa_bold"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_below="@+id/sellintInputLayout"
+                    >
+                    <Button
+                        android:id="@+id/GO_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="100dp"
+                        android:layout_marginLeft="100dp"
+                        android:background="@drawable/dialog_sell_btn_background"
+                        android:text="GO"
+                        android:textColor="@android:color/white"
+                        android:fontFamily="@font/nexa_bold"
+                        android:textStyle="bold"
+                        android:textSize="16dp"
+                        />
+                </LinearLayout>
+
+
+
+
+            </RelativeLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

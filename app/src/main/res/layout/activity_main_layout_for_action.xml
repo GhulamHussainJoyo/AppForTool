@@ -23,26 +23,4 @@
     <include layout="@layout/content_main_layout_for_action" />
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_btn_Of_main_activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/red"
-        android:src="@drawable/ic_add_white"
-        app:backgroundTint="@android:color/white"
-        tools:ignore="VectorDrawableCompat" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/show_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left|bottom"
-        android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/red"
-        android:src="@drawable/ic_remove_yellow"
-        app:backgroundTint="@android:color/white"
-        tools:ignore="VectorDrawableCompat" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

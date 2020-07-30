@@ -562,6 +562,7 @@
 
                         >
                         <ImageView
+                            android:id="@+id/itemImageView"
                             android:layout_width="40dp"
                             android:layout_height="30dp"
                             android:src="@drawable/ic_items"
@@ -608,7 +609,8 @@
 
                         >
                       <ImageView
-                            android:layout_width="40dp"
+                          android:id="@+id/lossImageView"
+                          android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:src="@drawable/loss_image"
                             android:gravity="center"
@@ -666,6 +668,7 @@
                         >
 
                         <ImageView
+                            android:id="@+id/profitImageView"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:src="@drawable/profit"
@@ -716,6 +719,7 @@
 
 
                         <ImageView
+                            android:id="@+id/sellImageView"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:src="@drawable/sell_details_items"
